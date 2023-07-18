@@ -441,6 +441,14 @@ impl<'de> Deserialize<'de> for CompressedRistretto {
 pub struct RistrettoPoint(pub(crate) EdwardsPoint);
 
 impl RistrettoPoint {
+    /// Get RistrettoPoint values
+    pub fn get_value(&self) -> ([u8;32], [u8;32], [u8;32]){
+        let X = self.0.X;
+        let Y = self.0.Y;
+        let Z = self.0.Z;
+       (X.to_bytes(), Y.to_bytes(), Z.to_bytes())
+    }
+    
     /// Compress this point using the Ristretto encoding.
     pub fn compress(&self) -> CompressedRistretto {
         let mut X = self.0.X;
